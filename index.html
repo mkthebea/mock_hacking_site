@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="utf-8">
+    <title>SQL Injection 실습</title>
+	<?php
+	if(isset($_POST['uid'])&&isset($_POST['pw'])) {
+	$username=$_POST['uid'];
+	$userpw=$_POST['pw'];
+
+	$conn= mysqli_connect('localhost', 'root', '000129', 'swsecsql');
+
+	$sql="SELECT * FROM user_info where uid='$username'&&pw='$userpw'";
+	if($result=mysqli_fetch_array(mysqli_query($conn, $sql))) {
+		echo "입력 ID: $username";
+		echo "<br> 입력 PW: $userpw";
+		echo "<br> 로그인 성공 <br>";
+		// echo "$result";
+		$dbsql="SELECT * FROM user_info where uid='$username'";
+		$dbresult=mysqli_query($conn, $dbsql);
+		while($db = mysqli_fetch_array($dbresult)){
+			echo "아이디".$db['uid'];
+			echo "<br>비밀번호: ".$db['pw'];
+			echo "<br>이메일: ".$db['email'];
+			echo "<br>이름: ".$db['name']."</br>";
+		  }
+	}
+	else {
+		echo "로그인 실패";
+		echo "<br>";
+		die("Error: " .mysqli_error($conn));
+	}
+	}
+	?>
+  </head>
+  <body>
+    <form  method="post">
+	<h2>Login</h2>
+      ID : <input type="text" name="uid" /></br>
+      PW : <input type="password" name="pw" /></br>
+      <input type="submit" value="login" />
+    </form>
+	<a href="board.html">게시판 가기</a>
+  </body>
+</html>
