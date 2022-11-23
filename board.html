@@ -3,56 +3,7 @@
 
 <head>
     <meta charset='utf-8'>
-    <style>
-        /* body {
-            align-items: center;
-        } */
-        table {
-            border-top: 1px solid #444444;
-            border-collapse: collapse;
-            margin-left: auto;
-            margin-right: auto;
-            width: 90vw;
-        }
-
-        tr {
-            border-bottom: 1px solid #444444;
-            padding: 10px;
-        }
-
-        th {
-            text-align: left;
-            padding: 10px;
-        }
-
-        td {
-            border-bottom: 1px solid #efefef;
-            padding: 10px;
-        }
-
-        table .even {
-            background: #efefef;
-        }
-
-        .text {
-            text-align: center;
-            padding-top: 20px;
-            color: #000000
-        }
-
-        .text:hover {
-            text-decoration: underline;
-        }
-
-        a:link {
-            color: #57A0EE;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link href="board.css" rel="stylesheet">
 </head>
 
 <body>
@@ -64,6 +15,12 @@
     $total = mysqli_num_rows($result);  //result set의 총 레코드(행) 수 반환
     ?>
     <p style="font-size:25px; text-align:center"><b>게시판</b></p>
+    <div class="search_box">
+        <form action = "search.php" method="get">
+            <input id="search_input" type="text" name="search" />
+            <button id="search_button">search</button>
+        </form>
+    </div>
     <table textAlign="center">
         <thead textAlign="center">
             <tr height="30">
