@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <style>
+        /* body {
+            align-items: center;
+        } */
+        table {
+            border-top: 1px solid #444444;
+            border-collapse: collapse;
+            margin-left: auto;
+            margin-right: auto;
+            width: 90vw;
+        }
+
+        tr {
+            border-bottom: 1px solid #444444;
+            padding: 10px;
+        }
+
+        th {
+            text-align: left;
+            padding: 10px;
+        }
+
+        td {
+            border-bottom: 1px solid #efefef;
+            padding: 10px;
+        }
+
+        table .even {
+            background: #efefef;
+        }
+
+        .text {
+            text-align: center;
+            padding-top: 20px;
+            color: #000000
+        }
+
+        .text:hover {
+            text-decoration: underline;
+        }
+
+        a:link {
+            color: #57A0EE;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <?php
+    $connect = mysqli_connect('localhost', 'root', '000129', 'swsecsql') or die("connect failed");
+    $query = "select * from board order by id desc";
+    $result = mysqli_query($connect, $query);
+    //$result = $connect->query($query);
+    $total = mysqli_num_rows($result);  //result set의 총 레코드(행) 수 반환
+    ?>
+    <p style="font-size:25px; text-align:center"><b>게시판</b></p>
+    <table textAlign="center">
+        <thead textAlign="center">
+            <tr height="30">
+                <th width="100" textAlign="center">글 번호</th>
+                <th width="500" textAlign="center">제목</th>
+                <th width="100" textAlign="center">작성자</th>
+                <th width="200" textAlign="center">날짜</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php
+            while ($rows = mysqli_fetch_assoc($result)) { //result set에서 레코드(행)를 1개씩 리턴
+                if ($total % 2 == 0) {
+            ?>
+                    <tr class="even">
+                        <!--배경색 진하게-->
+                    <?php } else {
+                    ?>
+                    <tr>
+                        <!--배경색 그냥-->
+                    <?php } ?>
+                    <!-- <td width="50" textAlign="center"><?php echo $total ?></td> -->
+                    <td width="100" textAlign="center">
+                            <?php echo $rows['id'] ?>
+                    </td>
+                    <td width="100" textAlign="center"><a href="read.php?number=<?php echo $rows['id'] ?>"><?php echo $rows['title'] ?></td>
+                    <td width="200" textAlign="center"><?php echo $rows['uid'] ?></td>
+                    <td width="50" textAlign="center"><?php echo $rows['created'] ?></td>
+                    </tr>
+                <?php
+                $total--;
+            }
+                ?>
+        </tbody>
+    </table>
+</body>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="utf-8">
+    <title>SQL Injection 실습</title>
+</head>
+<body>
+    <div id="board_area"> 
+        <h2>게시판</h2>
+        <table class="table table-hover" style="border: 1px solid;">
+        <thead class="thead-dark">
+          <tr>
+              <th scope="col" width="70">번호</th>
+                <th width="500">제목</th>
+                <th width="120">글쓴이</th>
+                <th width="100">작성일</th>
+                <th width="100">조회수</th>
+            </tr>
+        </thead>
+<?php
+    $menu = $_GET['menu'];
+    $search = $_GET['search'];
+    if(isset($_GET["search"])) {
+        $search = $_GET["search"];
+        $sql = "SELECT * FROM freeboard WHERE title LIKE '%" . $search . "%'";
+        $recordset = mysqli_query($link, $sql);
+        if(!$recordset) {
+        // die("Error: " . mysql_error());
+?>
+    <tr height="50">
+        <td colspan="5" width="580"><?php die("Error: " . mysqli_error($link)); ?></td>
+    </tr>
+<?php
+    }
+    if(mysqli_num_rows($recordset) != 0)
+    {
+        while($row = mysqli_fetch_array($recordset))
+        {
+            // print_r($row);
+?>
+        <tr height="30">
+          <td width="70"><?php echo $row['idx']; ?></td>
+          <td width="500"><a href="/freeboard/read?idx=<?php echo $row["idx"];?>"><?php echo $row["title"];?></a></td>
+          <td width="120"><?php echo $row['name']?></td>
+          <td width="100"><?php echo $row['date']?></td>
+          <td width="100"><?php echo $row['hit']; ?></td>
+        </tr>
+<?php
+        }
+    }
+    else{
+?>
+        <tr height="50">
+            <td colspan="5" width="580">No Result found!</td>
+        </tr>
+<?php
+}
+mysqli_close($link);
+}
+?>
+</table>
+</div>
+  </body>
+</html> -->
