@@ -68,6 +68,11 @@ a:link {
     text-decoration: none;
 }
 
+a:visited {
+    color: #57A0EE;
+    text-decoration: none;
+}
+
 a:hover {
     text-decoration: underline;
 }
