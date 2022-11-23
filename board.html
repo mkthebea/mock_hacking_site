@@ -24,9 +24,9 @@
     <table textAlign="center">
         <thead textAlign="center">
             <tr height="30">
-                <th width="100" textAlign="center">글 번호</th>
+                <th width="80" textAlign="center">글 번호</th>
                 <th width="500" textAlign="center">제목</th>
-                <th width="100" textAlign="center">작성자</th>
+                <th width="150" textAlign="center">작성자</th>
                 <th width="200" textAlign="center">날짜</th>
             </tr>
         </thead>
@@ -36,21 +36,17 @@
             while ($rows = mysqli_fetch_assoc($result)) { //result set에서 레코드(행)를 1개씩 리턴
                 if ($total % 2 == 0) {
             ?>
-                    <tr class="even">
-                        <!--배경색 진하게-->
-                    <?php } else {
-                    ?>
-                    <tr>
-                        <!--배경색 그냥-->
-                    <?php } ?>
-                    <!-- <td width="50" textAlign="center"><?php echo $total ?></td> -->
-                    <td width="100" textAlign="center">
-                            <?php echo $rows['id'] ?>
-                    </td>
-                    <td width="100" textAlign="center"><a href="read.php?number=<?php echo $rows['id'] ?>"><?php echo $rows['title'] ?></td>
-                    <td width="200" textAlign="center"><?php echo $rows['uid'] ?></td>
-                    <td width="50" textAlign="center"><?php echo $rows['created'] ?></td>
-                    </tr>
+                <!-- 짝수/홀수 행 색상 구분 -->
+                <tr class="even">   
+                <?php } else {
+                ?>
+                <tr>
+                <?php } ?>
+                <td><?php echo $rows['id'] ?></td>
+                <td><a href=""><?php echo $rows['title'] ?></td>
+                <td><?php echo $rows['uid'] ?></td>
+                <td><?php echo $rows['created'] ?></td>
+                </tr>
                 <?php
                 $total--;
             }
