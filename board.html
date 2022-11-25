@@ -15,12 +15,15 @@
     $total = mysqli_num_rows($result);  //result set의 총 레코드(행) 수 반환
     ?>
     <p style="font-size:25px; text-align:center"><b>게시판</b></p>
+
+    <!-- 검색어 입력 form -->
     <div class="search_box">
-        <form action = "search.php" method="get">
+        <form method="get">
             <input id="search_input" type="text" name="search" />
             <button id="search_button">search</button>
         </form>
     </div>
+
     <table textAlign="center">
         <thead textAlign="center">
             <tr height="30">
@@ -33,25 +36,66 @@
 
         <tbody>
             <?php
-            while ($rows = mysqli_fetch_assoc($result)) { //result set에서 레코드(행)를 1개씩 리턴
-                if ($total % 2 == 0) {
+            // 검색어가 있다면
+            if(isset($_GET["search"])) {
+                $search = $_GET["search"];
+                // 검색어가 제목에 포함된 데이터 검색
+                $search_query = "SELECT * FROM board WHERE title LIKE '%".$search."%'";
+                echo $search_query;
+                $recordset = mysqli_query($connect, $search_query);
+                if(!$recordset) {
             ?>
-                <!-- 짝수/홀수 행 색상 구분 -->
-                <tr class="even">   
-                <?php } else {
+            <tr height="50">
+                <td><?php die("Error: " . mysqli_error($connnect)); ?></td>
+            </tr>
+            <?php
+            }
+            if(mysqli_num_rows($recordset) != 0) {
+                while ($rows = mysqli_fetch_assoc($recordset)) { 
+                    if ($total % 2 == 0) {
                 ?>
-                <tr>
+            <tr class="even">
+                <?php 
+                    } else {
+                ?>
+            <tr>
                 <?php } ?>
                 <td><?php echo $rows['id'] ?></td>
                 <td><a href=""><?php echo $rows['title'] ?></td>
                 <td><?php echo $rows['uid'] ?></td>
                 <td><?php echo $rows['created'] ?></td>
-                </tr>
-                <?php
+            </tr>
+            <?php
+                    $total--;
+                }
+            } else {
+                ?>
+            <tr height="50">
+                <td colspan="5" width="580">No Result found!</td>
+            </tr>
+            <?php
+            }
+        } else {    // 검색어 없는 경우(처음 페이지 접속 시)
+            while ($rows = mysqli_fetch_assoc($result)) { //result set에서 레코드(행)를 1개씩 리턴
+                if ($total % 2 == 0) {
+            ?>
+            <!-- 짝수/홀수 행 색상 구분 -->
+            <tr class="even">
+                <?php } else {
+                ?>
+            <tr>
+                <?php } ?>
+                <td><?php echo $rows['id'] ?></td>
+                <td><a href=""><?php echo $rows['title'] ?></td>
+                <td><?php echo $rows['uid'] ?></td>
+                <td><?php echo $rows['created'] ?></td>
+            </tr>
+            <?php
                 $total--;
             }
-                ?>
+        } ?>
         </tbody>
+
     </table>
 </body>
 
