@@ -1,0 +1,83 @@
+.login_box {
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(233, 233, 233);
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.login_text {
+    width: 80px;
+    color: rgb(88,160,239);
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.login_box div {
+    display: flex;
+    align-items: center;
+}
+
+.input_box {
+    width: 300px;
+    height: 30px;
+    background-color: white;
+    border-radius: 5px;
+    outline: none;
+    border: 0;
+    color: rgb(88,160,239);
+    font-size: 20px;
+    border: 3px solid rgb(88,160,239);
+}
+
+.login_button {
+    margin-top: 30px;
+    background-color: rgb(88,160,239);
+    color: white;
+    height: 30px;
+    width: 100px;
+    border-radius: 5px;
+    border: 3px solid white;
+    font-size: 16px;
+}
+
+.welcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.success_text {
+    color: rgb(88,160,239);
+    font-size: 20px;
+}
+
+.welcome_text {
+    font-size: 25px;
+    color: rgb(88,160,239);
+}
+
+.board_link {
+    margin: 20px;
+    padding: 20px;
+    background-color: aliceblue;
+}
+
+a:link {
+    color: #57A0EE;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #57A0EE;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
