@@ -31,12 +31,19 @@
 	$conn= mysqli_connect('localhost', 'root', '000129', 'swsecsql');
 
 	$sql="SELECT * FROM user_info where uid='$username'&&pw='$userpw'";
+    echo $sql;
+    // echo length(database());
 	if($result=mysqli_fetch_array(mysqli_query($conn, $sql))) {
 		// echo "입력 ID: $username"."<br />"; 
         // echo "입력 PW: $userpw"; 
+
+        // ***************
         echo "<div class='welcome'>";
         echo "<p class='success_text'>로그인 성공</p>"; 
         echo "<div class='welcome_text'> $username"."님 환영합니다.</div>";
+        // ***************
+
+        // echo "<br><br>게시판을 이용하려면 로그인하세요";
         // echo "$result"; 
         // $dbsql="SELECT * FROM user_info where uid='$username'";
     // $dbresult=mysqli_query($conn, $dbsql); 
@@ -46,19 +53,31 @@
     //     echo "<br />이메일: ".$db['email']; 
     //     echo "<br />이름: ".$db['name']."<br /><br />"; 
     // } 
+
+    // ***************
     echo "<div class='board_link'><a href='board.html'>게시판 가기</a></div>"; 
     echo "</div>";
+
+    // ***************
+
 } else { 
+    // ***************
     echo "<div class='welcome'>";
     echo "<p class='success_text'>로그인 실패</p>"; 
     echo "<div class='welcome_text'>(인증 정보 불일치)</div>"; 
     echo "</div>";
+    // ***************
+
+    // echo "<br><br>게시판을 이용하려면 로그인하세요";
+
+    
 } // if(mysqli_error($conn)) { 
     // echo mysqli_error($conn); 
     // // die("Error: " .mysqli_error($conn)); 
     // } 
     } 
     ?>
+    <!-- <script type="text/javascript" src="filtering.js"></script> -->
 </body>
 
 </html>

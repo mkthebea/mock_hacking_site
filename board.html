@@ -20,7 +20,8 @@
     <div class="search_box">
         <form method="get">
             <input id="search_input" type="text" name="search" />
-            <button id="search_button" onClick="checkSearchKeyword()">search</button>
+            <button id="search_button">search</button>
+            <!-- <button id="search_button" onClick="checkSearchKeyword()">search</button> -->
             <!-- <button id="search_button" onClick="alert('click')">search</button> -->
         </form>
     </div>
@@ -42,6 +43,9 @@
                 $search = $_GET["search"];
                 // 검색어가 제목에 포함된 데이터 검색
                 $search_query = "SELECT * FROM board WHERE title LIKE '%".$search."%'";
+                // $search_query = "SELECT * FROM board WHERE title = '$search'";
+
+                
                 echo $search_query;
                 $recordset = mysqli_query($connect, $search_query);
                 if(!$recordset) {
