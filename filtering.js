@@ -1,3 +1,6 @@
+// 입력값에 대한 검증
+// 특수문자나 sql 예약어 입력 시 form 제출 막음, DB에 쿼리 전달 안됨
+
 const checkSearchKeyword = () => {
   let keyword = document.getElementById("search_input").value;
 
