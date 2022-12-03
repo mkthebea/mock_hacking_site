@@ -9,16 +9,17 @@
 </head>
 
 <body>
-    <form method="post">
+    <!-- <form method="post"> -->
+    <form method="post" onSubmit="return checkLoginKeyword()">
         <p style="font-size: 25px; text-align: center"><b>Login</b></p>
         <div class="login_box">
             <div>
                 <p class="login_text">ID </p>
-                <input class="input_box" type="text" name="uid" /><br />
+                <input id="id_input" class="input_box" type="text" name="uid" /><br />
             </div>
             <div>
                 <p class="login_text">PW </p>
-                <input class="input_box" type="password" name="pw" /><br />
+                <input id="pw_input" class="input_box" type="password" name="pw" /><br />
             </div>
             <div><input class="login_button" type="submit" value="login" /></div>
         </div>
@@ -77,7 +78,7 @@
     // } 
     } 
     ?>
-    <!-- <script type="text/javascript" src="filtering.js"></script> -->
+    <script type="text/javascript" src="filterLogin.js"></script>
 </body>
 
 </html>
