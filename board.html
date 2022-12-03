@@ -11,18 +11,16 @@
     $connect = mysqli_connect('localhost', 'root', '000129', 'swsecsql') or die("connect failed");
     $query = "select * from board order by id desc";
     $result = mysqli_query($connect, $query);
-    //$result = $connect->query($query);
     $total = mysqli_num_rows($result);  //result set의 총 레코드(행) 수 반환
     ?>
     <p style="font-size:25px; text-align:center"><b>게시판</b></p>
 
     <!-- 검색어 입력 form -->
     <div class="search_box">
-        <form method="get">
+        <form method="get" onSubmit="return checkSearchKeyword()">
             <input id="search_input" type="text" name="search" />
+            <!-- <button id="search_button">search</button> -->
             <button id="search_button">search</button>
-            <!-- <button id="search_button" onClick="checkSearchKeyword()">search</button> -->
-            <!-- <button id="search_button" onClick="alert('click')">search</button> -->
         </form>
     </div>
 
@@ -41,11 +39,15 @@
             // 검색어가 있다면
             if(isset($_GET["search"])) {
                 $search = $_GET["search"];
-                // 검색어가 제목에 포함된 데이터 검색
-                $search_query = "SELECT * FROM board WHERE title LIKE '%".$search."%'";
-                // $search_query = "SELECT * FROM board WHERE title = '$search'";
+                // $search = preg_replace("/[\r\n\s\t\’\;\”\=\-\-\#\/*]+/","", $search);
 
-                
+                // if(preg_match('/(union|select|from|where)/i', $search)) {
+                //     $this -> Error_popup('No SQL-Injection');
+                // } else {
+                    
+                // }
+                // 검색어가 제목에 포함된 데이터 검색
+                $search_query = "SELECT * FROM board WHERE title LIKE '%".$search."%'";       
                 echo $search_query;
                 $recordset = mysqli_query($connect, $search_query);
                 if(!$recordset) {
