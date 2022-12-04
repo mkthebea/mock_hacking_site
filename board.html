@@ -1,3 +1,8 @@
+<!-- 에러 메시지 출력 안하기 -->
+<?php
+  ini_set( 'display_errors', '0' );
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -9,7 +14,7 @@
 <body>
     <?php
     $connect = mysqli_connect('localhost', 'root', '000129', 'swsecsql') or die("connect failed");
-    $query = "select * from board order by id desc";
+    $query = "SELECT * FROM board order by id desc";
     $result = mysqli_query($connect, $query);
     $total = mysqli_num_rows($result);  //result set의 총 레코드(행) 수 반환
     ?>
@@ -17,9 +22,9 @@
 
     <!-- 검색어 입력 form -->
     <div class="search_box">
-        <form method="get" onSubmit="return checkSearchKeyword()">
+        <!-- <form method="get" onSubmit="return checkSearchKeyword()"> -->
+        <form method="get">
             <input id="search_input" type="text" name="search" />
-            <!-- <button id="search_button">search</button> -->
             <button id="search_button">search</button>
         </form>
     </div>
@@ -39,16 +44,9 @@
             // 검색어가 있다면
             if(isset($_GET["search"])) {
                 $search = $_GET["search"];
-                // $search = preg_replace("/[\r\n\s\t\’\;\”\=\-\-\#\/*]+/","", $search);
-
-                // if(preg_match('/(union|select|from|where)/i', $search)) {
-                //     $this -> Error_popup('No SQL-Injection');
-                // } else {
-                    
-                // }
                 // 검색어가 제목에 포함된 데이터 검색
                 $search_query = "SELECT * FROM board WHERE title LIKE '%".$search."%'";       
-                echo $search_query;
+                // echo $search_query;
                 $recordset = mysqli_query($connect, $search_query);
                 if(!$recordset) {
             ?>
@@ -56,17 +54,19 @@
                 <td><?php die("Error: " . mysqli_error($connnect)); ?></td>
             </tr>
             <?php
-            }
-            if(mysqli_num_rows($recordset) != 0) {
-                while ($rows = mysqli_fetch_assoc($recordset)) { 
-                    if ($total % 2 == 0) {
-                ?>
+                }
+                if(mysqli_num_rows($recordset) != 0) {
+                    while ($rows = mysqli_fetch_assoc($recordset)) { 
+                        if ($total % 2 == 0) {
+            ?>
             <tr class="even">
-                <?php 
-                    } else {
-                ?>
+                <?php
+                        } else {
+            ?>
             <tr>
-                <?php } ?>
+                <?php 
+                        } 
+            ?>
                 <td><?php echo $rows['id'] ?></td>
                 <td><a href=""><?php echo $rows['title'] ?></td>
                 <td><?php echo $rows['uid'] ?></td>
@@ -74,24 +74,28 @@
             </tr>
             <?php
                     $total--;
-                }
-            } else {
-                ?>
+                    }
+                } else {
+            ?>
             <tr height="50">
                 <td colspan="5" width="580">No Result found!</td>
             </tr>
             <?php
-            }
-        } else {    // 검색어 없는 경우(처음 페이지 접속 시)
-            while ($rows = mysqli_fetch_assoc($result)) { //result set에서 레코드(행)를 1개씩 리턴
-                if ($total % 2 == 0) {
+                }
+            } 
+            // 검색어가 없다면 (처음 페이지 접속 시)
+            else {    
+                while ($rows = mysqli_fetch_assoc($result)) { //result set에서 레코드(행)를 1개씩 리턴
+                    if ($total % 2 == 0) {
             ?>
-            <!-- 짝수/홀수 행 색상 구분 -->
             <tr class="even">
-                <?php } else {
-                ?>
+                <?php
+                    } else {
+            ?>
             <tr>
-                <?php } ?>
+                <?php 
+                    } 
+            ?>
                 <td><?php echo $rows['id'] ?></td>
                 <td><a href="post.html"><?php echo $rows['title'] ?></td>
                 <td><?php echo $rows['uid'] ?></td>
@@ -99,13 +103,12 @@
             </tr>
             <?php
                 $total--;
+                }
             }
-        } ?>
+            ?>
         </tbody>
-
     </table>
     <script type="text/javascript" src="filtering.js"></script>
-
 </body>
 
 </html>
