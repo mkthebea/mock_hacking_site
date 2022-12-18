@@ -30,26 +30,24 @@
         $userpw=$_POST['pw'];
 
         // prepared statement 사용 X
-        // $conn= mysqli_connect('localhost', 'root', '000129', 'swsecsql');
-        // $sql="SELECT * FROM user_info where uid='$username'&&pw='$userpw'";
-        // echo $sql;
+        $conn= mysqli_connect('localhost', 'root', '000129', 'swsecsql');
+        $sql="SELECT * FROM user_info where uid='$username'&&pw='$userpw'";
 
         // prepared statement 사용 (PDO)
-        $options = array(
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_EMULATE_PREPARES => false,
-        );
-        $pdo = new PDO('mysql:host=localhost;dbname=swsecsql;charset=utf8', 'root', '000129', $options);
-        $sql = $pdo->prepare("SELECT * FROM user_info where uid=? &&pw=?");
-        $sql->execute(array($username, $userpw));
-        $result = $sql->fetchAll();
-        // print_r($result);
+        // $options = array(
+        //     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        //     PDO::ATTR_EMULATE_PREPARES => false,
+        // );
+        // $pdo = new PDO('mysql:host=localhost;dbname=swsecsql;charset=utf8', 'root', '000129', $options);
+        // $sql = $pdo->prepare("SELECT * FROM user_info where uid=? &&pw=?");
+        // $sql->execute(array($username, $userpw));
+        // $result = $sql->fetchAll();
 
         // prepared statement 사용 X
-        // if($result=mysqli_fetch_array(mysqli_query($conn, $sql))) {
+        if($result=mysqli_fetch_array(mysqli_query($conn, $sql))) {
             
         // prepared statement 사용
-        if($result) {
+        // if($result) {
             echo "<div class='welcome'>";
             echo "<p class='success_text'>로그인 성공</p>"; 
             echo "<div class='welcome_text'> $username"."님 환영합니다.</div>";
