@@ -1,5 +1,5 @@
 # Mock Hacking Web Site for SQL Injection
-📜 Using Vanilla JavaScript & php <br>
+📜 Using Vanilla JavaScript & php & Maria DB & Apache Web Server <br>
 📜 SQL Injection Attack and Defense Exercise
 <br><br>
 
